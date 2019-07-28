@@ -17,29 +17,27 @@ class SignUp extends React.Component {
 
     handleChange = (event) => {
         const { value, name } = event.target;
-        this.setState({[name]: value}, ()=>console.log(this.state));
+        this.setState({[name]: value});
     };
 
-    handleSubmit = async (event) => {
+    handleSubmit =async (event) => {
         event.preventDefault();
-        const { email, displayName, password, confirmPassword} = this.state;
+        const { email, displayName, password, confirmPassword } = this.state;
         if(password !== confirmPassword){
-            console.log('passwords dont match');
-            return;
+            alert("password dont match!");
         }
         try{
             const { user } = await auth.createUserWithEmailAndPassword(email, password);
-            await createUserProfileDocument(user, {displayName});
+            await createUserProfileDocument(user, { displayName });
             this.setState({
                 displayName:'',
                 email: '',
                 password: '',
                 confirmPassword: ''
-            });
-        }catch(error){
+            })
+        } catch(error) {
             console.log(error);
         }
-
     };
 
     render() {
@@ -48,7 +46,7 @@ class SignUp extends React.Component {
             <div className='sign-up'>
                 <h1 className='title' >I already have an account</h1>
                 <span>Sign in with your email and password</span>
-                <form>
+                <form onSubmit={this.handleSubmit} >
                     <FormInput 
                     label='name'
                     name='displayName'
@@ -74,7 +72,8 @@ class SignUp extends React.Component {
                     value={confirmPassword}
                     handleChange={this.handleChange} />
                     <div className='buttons'>
-                        <CustomButton type='submit' onSubmit={this.handleSubmit} >submit</CustomButton>
+                    <CustomButton 
+                    type='submit' >Sign Up</CustomButton>
                     </div>
                 </form>
             </div>
