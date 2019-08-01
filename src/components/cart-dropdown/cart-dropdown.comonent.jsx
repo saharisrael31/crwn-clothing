@@ -1,5 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
+
+import CartItem from '../cart-item/cart-item.component';
 import CustomButton from '../custom-button/custom-button.component.jsx';
 
 import './cart-dropdown.styles.scss';
@@ -10,15 +12,17 @@ const CartDropdown = ({ cartItems }) => {
     <div className='cart-dropdown' >
         <div className='cart-items'>
             {
-               cartItems.lenght === 0?(<p>cart has items</p>):(<p>cart have no items</p>)
+                cartItems.map(
+                    cartItem => <CartItem key={cartItem.id} item={cartItem} />
+                )
             }
         </div>
         <CustomButton>GO TO CHECKOUT</CustomButton>
     </div>
 );}
 
-const mapStateToProps = ({cart}) =>({
-    cartItems: cart.cartItems
+const mapStateToProps = ({ cart:{cartItems} }) =>({
+    cartItems: cartItems
 })
 
 export default connect(mapStateToProps)(CartDropdown);

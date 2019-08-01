@@ -9,9 +9,7 @@ import './collection-item.styles.scss';
 const CollectionItem = ({item, addItem})=> {
     
     const {name, imageUrl, price} = item;
-    const addToCartClickHandler = ()=>{
-        addItem(item);
-    }
+    
     return (
     <div className='collection-item'>
         <div 
